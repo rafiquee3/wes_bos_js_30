@@ -18,7 +18,7 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img src="https://resize2-rfm.lanmedia.fr/f/webp/r/665,444,forcex,center-middle/img/var/rfm/storage/images/news/one-night-of-queen-decouvrez-le-spectacle-hommage-rendu-a-queen-27388/392110-1-fre-FR/One-Night-Of-Queen-decouvrez-le-spectacle-hommage-rendu-a-Queen.jpg">
 
   <style>
 
@@ -45,6 +45,27 @@
   </style>
 
   <script>
+    
+    const spacing = document.getElementById('spacing');
+    const base = document.getElementById('base');
+    const blur = document.getElementById('blur');
+    const img = document.querySelector('img');
+    const controls = document.querySelector('.controls');
+
+    let blurValue = blur.value;
+
+    function updateCss() {
+      img.style.cssText = `
+        filter: blur(${blur.value}px);
+        border: ${spacing.value}px solid;
+        border-color: ${base.value};
+      `; 
+    }
+    
+    updateCss();
+    
+    controls.addEventListener('change', () => updateCss());
+
   </script>
 
 </body>
