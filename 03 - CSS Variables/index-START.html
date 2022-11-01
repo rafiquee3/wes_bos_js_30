@@ -21,7 +21,13 @@
   <img src="https://resize2-rfm.lanmedia.fr/f/webp/r/665,444,forcex,center-middle/img/var/rfm/storage/images/news/one-night-of-queen-decouvrez-le-spectacle-hommage-rendu-a-queen-27388/392110-1-fre-FR/One-Night-Of-Queen-decouvrez-le-spectacle-hommage-rendu-a-Queen.jpg">
 
   <style>
+    :root {
+      --base: #ffc600;
+    }
 
+    .hl {
+      color: var(--base);
+    }
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -60,6 +66,7 @@
         border: ${spacing.value}px solid;
         border-color: ${base.value};
       `; 
+      document.documentElement.style.setProperty(`--base`, base.value);
     }
     
     updateCss();
