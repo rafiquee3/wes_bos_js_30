@@ -16,7 +16,48 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const cities = [];
 
+const input = document.querySelector('.search');
+const sugesstion = document.querySelector('.suggestions');
+
+fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => cities.push(...data));
+
+const matchQueryData = (query, data) => {
+  return data.filter(country => {
+    const regex = new RegExp(query, 'gi');
+
+    return country.city.match(regex) || country.state.match(regex);
+  })
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+const showData = (data, query) => {
+  const html = data.map(country => {
+    const regex = new RegExp(query, 'gi');
+    const city = country.city.replace(regex, `<span class="hl">${query}</span>`);
+    const state = country.state.replace(regex, `<span class="hl">${query}</span>`);
+    return `
+      <li>
+        <span class="name">${city}, ${state}</span>
+        <span class="population">${numberWithCommas(country.population)}</span>
+      </li>
+    `;
+  }).join('');
+  sugesstion.innerHTML= html;
+}
+
+const handleKeyPressed = () => {
+  let result = matchQueryData(event.target.value, cities);
+  showData(result, event.target.value);
+}
+
+input.addEventListener('keyup', handleKeyPressed)
 </script>
 </body>
 </html>
